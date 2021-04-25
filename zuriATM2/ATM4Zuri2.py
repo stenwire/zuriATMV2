@@ -1,5 +1,6 @@
 # --- A program written in fulfillment of the Zuri tasks
-#  --- 24/4/2021
+#  --- 21/4/2021
+# --- BOS = BANK OF STEN
 
 import random
 from datetime import *
@@ -23,7 +24,7 @@ def initialise():
         print("Good Evening")
         print(bank_time)
 
-    print("Welcome to Bank of STEN")
+    print("Welcome to BANK OF STEN")
 
     have_account = int(input("Do you have an account with us:\n 1. (YES)\n 2. (NO)\n"))
 
@@ -86,10 +87,10 @@ def register():
         print(database[account_number])
 
         print("Congratulations, your account has been created")
-        print("=" * 15 + " " * 5 + "=" * 15)
+        print("=" * 15 + " BOS " * 5 + "=" * 15)
         print(f"Your account number is: {account_number}")
         print("Make sure to keep it safe")
-        print("=" * 15 + " " * 5 + "=" * 15)
+        print("=" * 15 + " BOS " * 5 + "=" * 15)
 
         login()
 
@@ -146,25 +147,40 @@ def bank_operation(account_number, user_details):
     print(f"Welcome {user_details[0]} {user_details[1]}")
 
     selected_option = int(input("What would you like to do? \n (1). Deposit \t (2). Withdraw \n "
-                                "(3). View Balance \t (4). Contact customer care \n (5). Cancel \t (6). Exit \n"))
+                                "(3). View Balance \t (4). Buy Airtime \n (5). Transfer \t (6). Contact customer care "
+                                "\n "
+                                " (7). Cancel \t (8). Exit \n"))
 
     if selected_option == 1:
+        print("=======")
         deposit(account_number, user_details)
+
     elif selected_option == 2:
+        print("=======")
         withdrawal(account_number, user_details)
     elif selected_option == 3:
+        print("=======")
         view_balance(account_number, user_details)
     elif selected_option == 4:
-        customer_care(account_number, user_details)
+        print("=======")
+        buy_airtime(account_number, user_details)
     elif selected_option == 5:
-        login()
+        print("=======")
+        transfer(account_number, user_details)
     elif selected_option == 6:
+        print("=======")
+        customer_care(account_number, user_details)
+    elif selected_option == 7:
+        print("=======")
+        login()
+    elif selected_option == 8:
+        print("=======")
         exit()
 
     else:
         print("Invalid option selected, please tyr again")
 
-        print("=" * 20, "  " * 5, "=" * 20)
+        print("=" * 20, " BOS " * 5, "=" * 20)
 
         bank_operation(account_number, user_details)
 
@@ -176,7 +192,7 @@ def withdrawal(account_number, user_details):
     if current_balance < user_withdrawal:
         print("Insufficient balance")
 
-        print("=" * 20, "  " * 5, "=" * 20)
+        print("=" * 20, " BOS " * 5, "=" * 20)
 
         bank_operation(account_number, user_details)
 
@@ -188,7 +204,7 @@ def withdrawal(account_number, user_details):
 
         ((database[account_number])[4]) = current_balance
 
-        print("=" * 20, "  " * 5, "=" * 20)
+        print("=" * 20, " BOS " * 5, "=" * 20)
 
         bank_operation(account_number, user_details)
 
@@ -202,30 +218,81 @@ def deposit(account_number, user_details):
     print(f"You have successfully deposited {user_deposit} NGN")
     print(f"Your current balance is {new_balance} NGN")
 
-    print("=" * 20, "  " * 5, "=" * 20)
+    print("=" * 20, " BOS " * 5, "=" * 20)
 
     bank_operation(account_number, user_details)
 
 
 def view_balance(account_number, user_details):
     current_balance = ((database[account_number])[4])
-    print("Your account balance is: ", current_balance)
+    print("Your account balance is: ", current_balance, "NGN")
 
-    print("=" * 20, "  " * 5, "=" * 20)
+    print("=" * 20, " BOS " * 5, "=" * 20)
 
     bank_operation(account_number, user_details)
+
+
+def transfer(account_number, user_details):
+    transfer_account_number = input("Please enter account number to transfer to: \n")
+    transfer_amount = float(input("How much would you like to transfer: \n"))
+
+    current_balance = ((database[account_number])[4])
+
+    if current_balance < transfer_amount:
+        print("Insufficient balance")
+
+        print("=" * 20, " BOS " * 5, "=" * 20)
+
+        bank_operation(account_number, user_details)
+
+    elif current_balance >= transfer_amount:
+        current_balance = current_balance - transfer_amount
+        print(f"You have successfully transferred {transfer_amount} to {transfer_account_number}")
+
+        ((database[account_number])[4]) = current_balance
+
+        print("=" * 20, " BOS " * 5, "=" * 20)
+
+        bank_operation(account_number, user_details)
+
+
+def buy_airtime(account_number, user_details):
+    airtime_amount = float(input("How much airtime to send: \n"))
+    phone_number = int(input("Enter phone number: \n"))
+
+    current_balance = ((database[account_number])[4])
+
+    if current_balance < airtime_amount:
+        print("Insufficient balance")
+
+        print("=" * 20, " BOS " * 5, "=" * 20)
+
+        bank_operation(account_number, user_details)
+
+    elif current_balance >= airtime_amount:
+        current_balance = current_balance - airtime_amount
+        print(f"You just recharged {phone_number} with {airtime_amount} NGN")
+
+        ((database[account_number])[4]) = current_balance
+
+        print("=" * 20, " BOS " * 5, "=" * 20)
+
+        bank_operation(account_number, user_details)
 
 
 def customer_care(account_number, user_details):
     print("You can the customer care via \n (1). Whatsapp: 09068565663 \n (2). Twitter: StenTechy \n (3). Instagram: "
           "Sten Techy")
 
-    print("=" * 20, "  " * 5, "=" * 20)
+    print("=" * 20, " BOS " * 5, "=" * 20)
 
     bank_operation(account_number, user_details)
 
 
 def logout():
+
+    print("=" * 20, " BOS " * 5, "=" * 20)
+
     login()
 
 
