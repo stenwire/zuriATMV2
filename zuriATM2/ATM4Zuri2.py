@@ -144,6 +144,7 @@ def registration_input_validation(password):
 
 
 def bank_operation(account_number, user_details):
+    print("=======")
     print(f"Welcome {user_details[0]} {user_details[1]}")
 
     selected_option = int(input("What would you like to do? \n (1). Deposit \t (2). Withdraw \n "
